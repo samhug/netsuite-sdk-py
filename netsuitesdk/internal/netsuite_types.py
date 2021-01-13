@@ -115,6 +115,10 @@ COMPLEX_TYPES = {
         'EmployeeSearch'
     ],
 
+    'ns36': [
+        'SiteCategorySearch'
+    ],
+
     # urn:employees_2019_2.transactions.webservices.netsuite.com
     # https://webservices.netsuite.com/xsd/transactions/v2019_2_0/employees.xsd
     'ns38': [
