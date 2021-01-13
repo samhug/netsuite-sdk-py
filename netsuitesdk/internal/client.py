@@ -10,6 +10,7 @@ import logging
 import os.path
 import random
 import time
+import typing
 
 from zeep import Client
 from zeep.cache import SqliteCache
@@ -82,14 +83,16 @@ class NetSuiteClient:
 
         self._app_info = None
         self._is_authenticated = False
-        self.set_search_preferences()
 
-    def set_search_preferences(self, page_size: int = 5, return_search_columns: bool = False):
-        self._search_preferences = self.SearchPreferences(
-            bodyFieldsOnly=False,
-            pageSize=page_size,
-            returnSearchColumns=return_search_columns
-        )
+    def set_search_preferences(self, page_size: typing.Optional[int] = None, return_search_columns: typing.Optional[bool] = None, body_fields_only: typing.Optional[bool] = None):
+        kwargs = {}
+        if page_size is not None:
+            kwargs["pageSize"] = page_size
+        if return_search_columns is not None:
+            kwargs["returnSearchColumns"] = return_search_columns
+        if body_fields_only is not None:
+            kwargs["bodyFieldsOnly"] = body_fields_only
+        self._search_preferences = self.SearchPreferences(**kwargs)
 
     def _init_complex_types(self):
         self._complex_types = {}
@@ -318,7 +321,7 @@ class NetSuiteClient:
             soapheaders['passport'] = self._passport
         else:
             raise NetSuiteError('Must either login first or pass passport or tokenPassport to request header.')
-        if include_search_preferences:
+        if include_search_preferences and self._search_preferences is not None:
             soapheaders['searchPreferences'] = self._search_preferences
 
         return soapheaders
