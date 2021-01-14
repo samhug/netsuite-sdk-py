@@ -72,7 +72,8 @@ COMPLEX_TYPES = {
         'Department', 'DepartmentSearch',
         'Location', 'LocationSearch',
         'Subsidiary', 'SubsidiarySearch',
-        'VendorCategory', 'VendorCategorySearch'
+        'VendorCategory', 'VendorCategorySearch',
+        'ItemSearch'
     ],
 
     'ns19': [
